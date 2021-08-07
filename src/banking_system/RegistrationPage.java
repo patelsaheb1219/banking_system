@@ -227,38 +227,43 @@ public class RegistrationPage extends JFrame {
                 String userZipcode = userZipcodeField.getText();
                 String userPassword = userPasswordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
-                try {
-                    Connection connection = null;
-					try {
-						connection = DBConnection.getConnection();
-						PreparedStatement st = (PreparedStatement) connection
-		                        .prepareStatement("INSERT INTO user(user_name, user_full_name, user_email, user_contact, user_age, user_address, user_zipcode, user_password) values (?,?,?,?,?,?,?,?)");
+                PasswordChecker passwordChecker = new PasswordChecker();
+                if (passwordChecker.passwordChecker(userPassword)) {
+                    try {
+                        Connection connection = null;
+    					try {
+    						connection = DBConnection.getConnection();
+    						PreparedStatement st = (PreparedStatement) connection
+    		                        .prepareStatement("INSERT INTO user(user_name, user_full_name, user_email, user_contact, user_age, user_address, user_zipcode, user_password) values (?,?,?,?,?,?,?,?)");
 
-		                    st.setString(1, userName);
-		                    st.setString(2, userFullName);
-		                    st.setString(3, userEmail);
-		                    st.setString(4, userContact);
-		                    st.setString(5, userAge);
-		                    st.setString(6, userAddress);
-		                    st.setString(7, userZipcode);
-		                    st.setString(8, userPassword);
-		                    int rs = st.executeUpdate();
-		                    System.out.print(rs);
-		                    if (rs == 1) {
-		                        dispose();
-		                        LoginPage ah = new LoginPage();
-		                        ah.setTitle("Bank Account");
-		                        ah.setVisible(true);
-		                        JOptionPane.showMessageDialog(registerButton, "You have successfully registred");
-		                    } else {
-		                        JOptionPane.showMessageDialog(registerButton, "Wrong Username & Password");
-		                    }
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-                } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();
+    		                    st.setString(1, userName);
+    		                    st.setString(2, userFullName);
+    		                    st.setString(3, userEmail);
+    		                    st.setString(4, userContact);
+    		                    st.setString(5, userAge);
+    		                    st.setString(6, userAddress);
+    		                    st.setString(7, userZipcode);
+    		                    st.setString(8, userPassword);
+    		                    int rs = st.executeUpdate();
+    		                    System.out.print(rs);
+    		                    if (rs == 1) {
+    		                        dispose();
+    		                        LoginPage ah = new LoginPage();
+    		                        ah.setTitle("Bank Account");
+    		                        ah.setVisible(true);
+    		                        JOptionPane.showMessageDialog(registerButton, "You have successfully registred");
+    		                    } else {
+    		                        JOptionPane.showMessageDialog(registerButton, "Wrong Username & Password");
+    		                    }
+    					} catch (ClassNotFoundException e1) {
+    						// TODO Auto-generated catch block
+    						e1.printStackTrace();
+    					}
+                    } catch (SQLException sqlException) {
+                        sqlException.printStackTrace();
+                    }	
+                } else {
+                	
                 }
             }
         });

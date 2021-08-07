@@ -138,6 +138,8 @@ public class TransferPage extends JFrame {
             }
         });
         contentPane.add(logoutButton);
+        
+        
     }
 
 }
